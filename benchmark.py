@@ -22,7 +22,9 @@ def time_function(fn, fn_args, n=1):
     times = []
     for i in range(n):
         start = time.perf_counter()
-        fn(**fn_args)
+        result = fn(**fn_args)
+        print(type(result))
+        print(result.shape)
         end = time.perf_counter()
         times.append(end - start)
 
@@ -52,7 +54,7 @@ def dask_wallis(array, filter_kernel):
         std = np.sqrt((squared_mean - mean) ** 2) * np.sqrt(kernel_sum / (kernel_sum - 1.0))
 
         out_array = (array - mean) / std
-        out_array = out_array.comput()
+        out_array = out_array.compute()
     return out_array
 
 
@@ -67,7 +69,7 @@ def cv2_wallis(array, filter_kernel):
     return out_array
 
 
-n_runs = 5
+n_runs = 1
 data_width = 7_000  # rough size of landsat 7 scene (not panchromatic)
 kernel_width = 5
 
