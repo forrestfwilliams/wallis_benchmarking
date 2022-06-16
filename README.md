@@ -6,11 +6,11 @@ Image size: 7000x7000
 Kernel size: 5x5  
 n Iterations: 5  
 
-Scipy took 1.072 s on average    
+Scipy took 1.072 s on average  
 CV2 took 0.507 s on average  
 Dask took 0.506 s on average  
-Julia single thread took 37.868 s on average
-Julia single thread took 38.121 s on average
+Julia single thread took 37.868 s on average  
+Julia single thread took 38.121 s on average  
 (julia benchmarks performed in ARM64 M1 Mac conda environment which may have impacted performance)  
 
 **Benchmark Computer Specs**  
