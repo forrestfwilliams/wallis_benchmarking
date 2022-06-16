@@ -1,0 +1,9 @@
+name: wallis
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - xarray
+  - dask
+  - opencv
+  - scipy
