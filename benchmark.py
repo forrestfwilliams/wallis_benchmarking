@@ -1,5 +1,5 @@
 import numpy as np
-import scipy.ndimage
+from numba import njit
 import scipy.ndimage as ndimage
 import cv2
 import dask.array as da
@@ -102,8 +102,25 @@ def dask_wallis(array, filter_width):
     return out_array
 
 
+@njit
+def local_mean(array):
+    return np.mean(array)
+
+
+@njit
+def local_std(array):
+    return np.std(array)
+
+
+def numba_wallis(array, filter_width):
+    std = ndimage.generic_filter(array, local_std, (filter_width, filter_width))
+    mean = ndimage.generic_filter(array, local_mean, (filter_width, filter_width))
+    out_array = (array - mean) / std
+    return out_array
+
+
 if __name__ == '__main__':
-    n_runs = 5
+    n_runs = 1
     data_width = 7_000  # rough size of landsat 7 scene (not panchromatic)
     kernel_width = 5
 
@@ -119,7 +136,11 @@ if __name__ == '__main__':
     print(f'CV2 took {exec_time:.03f}\n')
 
     print('starting dask')
-    exec_time = time_function(cv2_wallis, in_data, n_runs)
+    exec_time = time_function(dask_wallis, in_data, n_runs)
     print(f'Dask took {exec_time:.03f}\n')
+
+    print('starting numba')
+    exec_time = time_function(numba_wallis, in_data, n_runs)
+    print(f'numba took {exec_time:.03f}\n')
 
     print('done!')

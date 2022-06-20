@@ -61,7 +61,7 @@ def test_dask_std_value():
     assert np.round(std, 5) == np.round(da_std[2, 2], 5)
 
 
-def test_scipy_dask_value():
+def test_dask_wallis_value():
     width = 3
     image = generate_data()
     subset = image[1:4, 1:4]
@@ -69,3 +69,13 @@ def test_scipy_dask_value():
     mean = np.mean(subset.flatten())
     wallis = (image[2, 2] - mean) / std
     assert np.round(wallis, 5) == np.round(benchmark.dask_wallis(image, width)[2, 2], 5)
+
+
+def test_numba_wallis_value():
+    width = 3
+    image = generate_data()
+    subset = image[1:4, 1:4]
+    std = np.std(subset.flatten())
+    mean = np.mean(subset.flatten())
+    wallis = (image[2, 2] - mean) / std
+    assert np.round(wallis, 5) == np.round(benchmark.numba_wallis(image, width)[2, 2], 5)
