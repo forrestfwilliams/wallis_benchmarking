@@ -103,7 +103,7 @@ def dask_wallis(array, filter_width):
 
 
 if __name__ == '__main__':
-    n_runs = 1
+    n_runs = 5
     data_width = 7_000  # rough size of landsat 7 scene (not panchromatic)
     kernel_width = 5
 
