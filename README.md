@@ -9,8 +9,7 @@ n Iterations: 5
 Scipy took 2.373 s on average  
 CV2 took 0.751 s on average  
 Dask took 0.751 s on average  
-Julia single thread took 37.868 s on average  
-Julia four thread took 38.121 s on average  
+Julia on auto thread took 19.506 s for single thread, then stalled out
 (julia benchmarks performed in ARM64 M1 Mac conda environment which may have impacted performance)  
 
 **Benchmark Computer Specs**  
