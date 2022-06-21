@@ -8,3 +8,5 @@ dependencies:
   - opencv
   - scipy
   - pytest
+  - numba
+  - julia
