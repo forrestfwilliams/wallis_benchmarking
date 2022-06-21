@@ -56,8 +56,8 @@ On average:
 On average:
 * Scipy took 3.860 s
 * CV2 took 1.684 s
-* Dask took 3.627 s
-* Numba took 39.614 s
+* Dask took 3.532 s
+* Numba took 39.379 s
 * Julia on auto thread:
   * single thread took 23.264 s
   * multiple threads took 11.412 s
