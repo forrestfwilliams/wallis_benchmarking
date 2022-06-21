@@ -1,17 +1,18 @@
-import numpy as np
-from numba import njit
-import scipy.ndimage as ndimage
-import cv2
-import dask.array as da
-import dask
 import time
 
-'''
+import cv2
+import dask
+import dask.array as da
+import numpy as np
+import scipy.ndimage as ndimage
+from numba import njit
+
+"""
 References:
 http://nickc1.github.io/python,/matlab/2016/05/17/Standard-Deviation-(Filters)-in-Matlab-and-Python.html
 https://docs.dask.org/en/stable/array-overlap.html
 https://docs.dask.org/en/stable/scheduling.html
-'''
+"""
 
 
 def create_data(shape):
@@ -23,7 +24,7 @@ def time_function(fn, fn_args, n=1):
     times = []
     for i in range(n):
         start = time.perf_counter()
-        result = fn(**fn_args)
+        _ = fn(**fn_args)
         end = time.perf_counter()
         times.append(end - start)
 
@@ -31,10 +32,10 @@ def time_function(fn, fn_args, n=1):
 
 
 def scipy_std(array, filter_width):
-    '''
+    """
     https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance
     http://cpsc.yale.edu/sites/default/files/files/tr222.pdf
-    '''
+    """
     n = filter_width ** 2
     shifted = array - np.mean(array)
     conv_sum = ndimage.convolve(shifted, np.ones((filter_width, filter_width)))
@@ -90,9 +91,8 @@ def dask_std(array, filter_width):
 
 
 def dask_wallis(array, filter_width):
-    with dask.config.set(scheduler='threads'):  # change to sychronous for single thread
+    with dask.config.set(scheduler='threads'):  # change to synchronous for single thread
         da_array = da.from_array(array)
-        n = filter_width ** 2
 
         std = cv2_std(array, filter_width)
         mean = da_array.map_overlap(lambda x: ndimage.uniform_filter(x, filter_width), depth=filter_width,
