@@ -42,14 +42,15 @@ produced the following Benchmark results.
 ### 10 core Apple M1 pro with 32 gb of RAM
 
 On average:
-* Scipy took 2.464 s
-* CV2 took 0.726 s
-* Dask took 3.640 s
-* Numba took 41.844 s
+* Scipy took 2.379 s
+* CV2 took 0.879 s
+* Dask took 1.687 s
+* Numba took 23.716 s
 * Julia on auto thread:
-  * single thread took 19.506 s
-  * runs with multiple threads then stalled out
-    (`osx_arm64` conda environments are still experimental and may have impacted performance)
+    * single thread took 9.423 s
+    * multiple threads took 4.457 s
+    * multiple threads with `mapwindow` took 4.962 s
+    * multiple threads with `imfilter` took 0.654 s
 
 ### 12 core Dell XPS 145 with 32 gb of RAM
 
